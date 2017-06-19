@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="Keyboard_External_Key">
+        <attr name="keycode" format="integer" />
+        <attr name="keyStyle" format="enum">
+            <enum name="normal" value="0" />
+            <enum name="light" value="1" />
+        </attr>
+        <attr name="keyChecked" format="boolean"/>
+    </declare-styleable>
+
+
+    <declare-styleable name="Keyboard">
+        <!-- Default width of a key, in pixels or percentage of display width. -->
+        <attr name="keyWidth" format="dimension|fraction" />
+        <!-- Default height of a key, in pixels or percentage of display width. -->
+        <attr name="keyHeight" format="dimension|fraction" />
+        <!-- Default horizontal gap between keys. -->
+        <attr name="horizontalGap" format="dimension|fraction" />
+        <!-- Default vertical gap between rows of keys. -->
+        <attr name="verticalGap" format="dimension|fraction" />
+    </declare-styleable>
+
+    <declare-styleable name="Keyboard_Key">
+        <attr name="keyLabel" format="string" />
+        <!-- The icon to display on the key instead of the label. -->
+        <attr name="keyIcon" format="reference" />
+    </declare-styleable>
+
+
+    <declare-styleable name="KeyboardView">
+        <attr name="type" format="enum">
+            <enum name="number" value="0" />
+            <enum name="english_lower" value="1" />
+            <enum name="english_upper" value="2" />
+            <enum name="symbol" value="3" />
+        </attr>
+    </declare-styleable>
+</resources>

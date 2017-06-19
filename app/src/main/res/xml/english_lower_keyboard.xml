@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Keyboard xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:horizontalGap="1.3%"
+    app:keyHeight="40dp"
+    app:keyWidth="8.6%p"
+    app:verticalGap="9dp">
+    <Row>
+        <Key app:horizontalGap="1.15%p"  app:keycode="23" app:keyLabel="q"/>
+        <Key app:keycode="23" app:keyLabel="w"/>
+        <Key app:keycode="23" app:keyLabel="e"/>
+        <Key app:keycode="23" app:keyLabel="r"/>
+        <Key app:keycode="23" app:keyLabel="t"/>
+        <Key app:keycode="23" app:keyLabel="y"/>
+        <Key app:keycode="23" app:keyLabel="u"/>
+        <Key app:keycode="23" app:keyLabel="i"/>
+        <Key app:keycode="23" app:keyLabel="o"/>
+        <Key app:keycode="23" app:keyLabel="p"/>
+    </Row>
+    <Row>
+        <Key app:horizontalGap="6.1%p" app:keycode="23" app:keyLabel="a"/>
+        <Key app:keycode="23" app:keyLabel="s"/>
+        <Key app:keycode="23" app:keyLabel="d"/>
+        <Key app:keycode="23" app:keyLabel="f"/>
+        <Key app:keycode="23" app:keyLabel="g"/>
+        <Key app:keycode="23" app:keyLabel="h"/>
+        <Key app:keycode="23" app:keyLabel="j"/>
+        <Key app:keycode="23" app:keyLabel="k"/>
+        <Key app:keycode="23" app:keyLabel="l"/>
+    </Row>
+    <Row >
+        <Key  app:horizontalGap="1.15%p" app:keyStyle="light" app:keyIcon="@drawable/keyboard_replace" app:keycode="-2"  app:keyWidth="10.8%p"/>
+        <Key  app:horizontalGap="4.05%p" app:keycode="23" app:keyLabel="z"/>
+        <Key app:keycode="23" app:keyLabel="x"/>
+        <Key app:keycode="23" app:keyLabel="c"/>
+        <Key app:keycode="23" app:keyLabel="v"/>
+        <Key app:keycode="23" app:keyLabel="b"/>
+        <Key app:keycode="23" app:keyLabel="n"/>
+        <Key app:keycode="23" app:keyLabel="m"/>
+        <Key app:horizontalGap="4.05%p" app:keycode="0" app:keyIcon="@drawable/keyboard_delete" app:keyWidth="10.8%p" app:keyStyle="light"/>
+    </Row>
+    <Row >
+        <Key app:horizontalGap="1.15%p" app:keycode="-3" app:keyStyle="light" app:keyLabel="123" app:keyWidth="23.5%p"/>
+        <Key app:horizontalGap="50.7%p" app:keycode="-4" app:keyStyle="light" app:keyLabel="#+=" app:keyWidth="23.5%p"/>
+    </Row>
+</Keyboard>
