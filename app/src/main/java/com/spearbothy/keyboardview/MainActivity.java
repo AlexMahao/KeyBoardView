@@ -16,6 +16,8 @@ public class MainActivity extends AppCompatActivity {
     private KeyboardUtil mKeyboardUtil;
     private EditText mNormalEt1;
     private EditText mSpecialEt1;
+    private EditText mNormalEt2;
+    private EditText mSpecialEt2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,14 +26,15 @@ public class MainActivity extends AppCompatActivity {
 
         mNormalEt = (EditText) findViewById(R.id.normal);
         mNormalEt1 = (EditText) findViewById(R.id.normal1);
+        mNormalEt2 = (EditText) findViewById(R.id.normal2);
         mSpecialEt = (EditText) findViewById(R.id.special);
+        mSpecialEt2 = (EditText) findViewById(R.id.special2);
         mSpecialEt1 = (EditText) findViewById(R.id.special1);
 
         mRootView = (LinearLayout) findViewById(R.id.root_view);
         mScrollView = (ScrollView) findViewById(R.id.scroll_view);
         initKeyBoard();
     }
-
 
     @Override
     public void onBackPressed() {
@@ -47,5 +50,6 @@ public class MainActivity extends AppCompatActivity {
         mKeyboardUtil.setNormalEditTextTouchListener(mNormalEt, mNormalEt1);
         mSpecialEt.setOnTouchListener(new KeyboardTouchListener(mKeyboardUtil, KeyboardView.TYPE_NUMBER, -1));
         mSpecialEt1.setOnTouchListener(new KeyboardTouchListener(mKeyboardUtil, KeyboardView.TYPE_ENGLISH_LOWER, -1));
+        mSpecialEt2.setOnTouchListener(new KeyboardTouchListener(mKeyboardUtil, KeyboardView.TYPE_ENGLISH_LOWER, -1));
     }
 }

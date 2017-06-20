@@ -14,8 +14,12 @@ import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.PopupWindow;
+import android.widget.TextView;
 
 /**
  * Created by mahao on 17-6-14.
@@ -28,7 +32,11 @@ public class KeyboardView extends View {
     public static final int TYPE_ENGLISH_LOWER = 1;
     public static final int TYPE_ENGLISH_UPPER = 2;
     public static final int TYPE_SYMBOL = 3;
-    private final NinePatch mKeyPressPressPatch;
+    private NinePatch mKeyPressPressPatch;
+    private PopupWindow mPreviewPopup;
+    private TextView mPreviewText;
+    private int mPreviewOffsetHeight;
+    private int mPreviewOffsetWidth;
 
     private int mType;
 
@@ -36,13 +44,17 @@ public class KeyboardView extends View {
 
     private Paint mTextPaint;
 
-    private final NinePatch mKeyPressLightPatch;
+    private NinePatch mKeyPressLightPatch;
 
     private NinePatch mKeyPressNormalPatch;
 
     private Keyboard.Key mPressKey;
 
     private OnKeyboardActionListener mOnKeyboardActionListener;
+
+    private int mPreviewHeight;
+
+    private int mPreviewWidth;
 
     public KeyboardView(Context context) {
         this(context, null);
@@ -73,11 +85,18 @@ public class KeyboardView extends View {
 
         mTextPaint = new Paint();
         mTextPaint.setStrokeWidth(3);
-        mTextPaint.setTextSize(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 12, getResources().getDisplayMetrics()));
+        mTextPaint.setTextSize(getFractionByHeight(0.025f));
         mTextPaint.setColor(Color.WHITE);
+        mTextPaint.setAntiAlias(true);
         mTextPaint.setTextAlign(Paint.Align.LEFT);
 
-        Log.i(TAG, mKeyboard.mKeys.toString());
+        mPreviewText = (TextView) LayoutInflater.from(getContext()).inflate(R.layout.layout_preview_key, null);
+        mPreviewText.setPadding(0, getFractionByHeight(0.015625f), 0, 0);
+        mPreviewText.setTextSize(TypedValue.COMPLEX_UNIT_PX, getFractionByHeight(0.0375f));
+        mPreviewPopup = new PopupWindow(context);
+        mPreviewPopup.setContentView(mPreviewText);
+
+        Log.i(TAG, mKeyboard.getKeys().toString());
     }
 
     public void replace(int type) {
@@ -93,7 +112,6 @@ public class KeyboardView extends View {
         invalidate();
     }
 
-
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
@@ -103,7 +121,7 @@ public class KeyboardView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        for (Keyboard.Key key : mKeyboard.mKeys) {
+        for (Keyboard.Key key : mKeyboard.getKeys()) {
             drawKeyBg(key, canvas);
             if (key.icon != null) {
                 drawIcon(key, canvas);
@@ -156,6 +174,7 @@ public class KeyboardView extends View {
                 if (mPressKey == null) {
                     return true;
                 }
+
                 onPress(mPressKey);
                 mPressKey.pressed = true;
                 break;
@@ -173,12 +192,64 @@ public class KeyboardView extends View {
     }
 
     public void onPress(Keyboard.Key key) {
+        showPopupWindow(key);
         if (mOnKeyboardActionListener != null) {
             mOnKeyboardActionListener.onPress(key);
         }
     }
 
+    public void showPopupWindow(Keyboard.Key key) {
+        mPreviewText.setText(key.label);
+        int[] mCoordinates = new int[2];
+        getLocationInWindow(mCoordinates);
+        int x = 0;
+        int y = 0;
+        switch (key.previewDir) {
+            case Keyboard.Key.PREVIEW_DIR_LEFT:
+                mPreviewHeight = getFractionByHeight(0.164584f);
+                mPreviewWidth = getFractionByWidth(0.162963f);
+                mPreviewOffsetHeight = getFractionByHeight(0.007813f);
+                mPreviewOffsetWidth = getFractionByWidth(0.0138889f);
+                mPreviewPopup.setBackgroundDrawable(getResources().getDrawable(R.drawable.keyboard_preview_left));
+                mPreviewPopup.setWidth(mPreviewWidth);
+                mPreviewPopup.setHeight(mPreviewHeight);
+                y = mCoordinates[1] + key.y - (mPreviewHeight - mKeyboard.getKeyHeight()) + mPreviewOffsetHeight;
+                x = key.x - mPreviewOffsetWidth;
+                mPreviewPopup.showAtLocation(this, Gravity.NO_GRAVITY, x, y);
+                break;
+            case Keyboard.Key.PREVIEW_DIR_CENTER:
+                mPreviewHeight = getFractionByHeight(0.164584f);
+                mPreviewWidth = getFractionByWidth(0.178704f);
+                mPreviewOffsetHeight = getFractionByHeight(0.007813f);
+                mPreviewOffsetWidth = getFractionByWidth(0.046297f);
+                mPreviewPopup.setBackgroundDrawable(getResources().getDrawable(R.drawable.keyboard_preview_center));
+                mPreviewPopup.setWidth(mPreviewWidth);
+                mPreviewPopup.setHeight(mPreviewHeight);
+                y = mCoordinates[1] + key.y - (mPreviewHeight - mKeyboard.getKeyHeight()) + mPreviewOffsetHeight;
+                x = key.x - mPreviewOffsetWidth;
+                mPreviewPopup.showAtLocation(this, Gravity.NO_GRAVITY, x, y);
+                break;
+            case Keyboard.Key.PREVIEW_DIR_RIGHT:
+                mPreviewHeight = getFractionByHeight(0.164584f);
+                mPreviewWidth = getFractionByWidth(0.162963f);
+                mPreviewOffsetHeight = getFractionByHeight(0.007813f);
+                mPreviewOffsetWidth = getFractionByWidth(0.063889f);
+                mPreviewPopup.setBackgroundDrawable(getResources().getDrawable(R.drawable.keyboard_preview_right));
+                mPreviewPopup.setWidth(mPreviewWidth);
+                mPreviewPopup.setHeight(mPreviewHeight);
+                y = mCoordinates[1] + key.y - (mPreviewHeight - mKeyboard.getKeyHeight()) + mPreviewOffsetHeight;
+                x = key.x - mPreviewOffsetWidth;
+                mPreviewPopup.showAtLocation(this, Gravity.NO_GRAVITY, x, y);
+                break;
+            default:
+                break;
+        }
+    }
+
     public void onRelease(Keyboard.Key key) {
+        if (mPreviewPopup != null && mPreviewPopup.isShowing()) {
+            mPreviewPopup.dismiss();
+        }
         if (key.code < 0) {
             processKey(key.code);
         } else if (key.code == 0) {
@@ -210,7 +281,6 @@ public class KeyboardView extends View {
         invalidate();
     }
 
-
     public void setOnKeyboardActionListener(OnKeyboardActionListener onKeyboardActionListener) {
         this.mOnKeyboardActionListener = onKeyboardActionListener;
     }
@@ -218,15 +288,17 @@ public class KeyboardView extends View {
     private Keyboard.Key calculateLocation(float x, float y) {
         Keyboard.Row row = null;
         Keyboard.Key key = null;
-        for (int i = 0; i < mKeyboard.rows.size(); i++) {
-            row = mKeyboard.rows.get(i);
+        float touchX = x;
+        float touchY = y;
+        for (int i = 0; i < mKeyboard.getRows().size(); i++) {
+            row = mKeyboard.getRows().get(i);
             if (y < row.y + row.defaultHeight) {
                 y = y - row.verticalGap / 2;
                 if (y < row.y - row.verticalGap) {
                     if (i == 0) {
                         return null;
                     }
-                    row = mKeyboard.rows.get(i - 1);
+                    row = mKeyboard.getRows().get(i - 1);
                 }
                 break;
             }
@@ -244,7 +316,18 @@ public class KeyboardView extends View {
                 break;
             }
         }
+        if (touchX < key.x - mKeyboard.getHorizontalGap() / 2 || touchX > key.x + key.width + mKeyboard.getHorizontalGap() / 2) {
+            return null;
+        }
         return key;
+    }
+
+    public int getFractionByWidth(float fraction) {
+        return Math.round(fraction * getResources().getDisplayMetrics().widthPixels);
+    }
+
+    public int getFractionByHeight(float fraction) {
+        return Math.round(fraction * getResources().getDisplayMetrics().heightPixels);
     }
 
     public interface OnKeyboardActionListener {

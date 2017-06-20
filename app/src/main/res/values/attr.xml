@@ -6,7 +6,13 @@
             <enum name="normal" value="0" />
             <enum name="light" value="1" />
         </attr>
-        <attr name="keyChecked" format="boolean"/>
+        <attr name="keyChecked" format="boolean" />
+        <attr name="keyPreviewDir" format="enum">
+            <enum name="none" value="0"/>
+            <enum name="left" value="1" />
+            <enum name="center" value="2" />
+            <enum name="right" value="3" />
+        </attr>
     </declare-styleable>
 
 

@@ -1,5 +1,3 @@
-
-
 package com.spearbothy.keyboardview;
 
 import android.content.Context;
@@ -25,7 +23,6 @@ public class Keyboard {
     private static final String TAG_KEYBOARD = "Keyboard";
     private static final String TAG_ROW = "Row";
     private static final String TAG_KEY = "Key";
-
 
     public static final int KEYCODE_MODE_CHANGE_TO_ENGLISH_LOWER = -1;
     public static final int KEYCODE_MODE_CHANGE_TO_UPPER = -2;
@@ -55,9 +52,11 @@ public class Keyboard {
 
     private int mDisplayHeight;
 
-    public List<Key> mKeys = new ArrayList<>();
+    private List<Key> mKeys = new ArrayList<>();
 
-    public ArrayList<Row> rows = new ArrayList<Row>();
+    private ArrayList<Row> rows = new ArrayList<Row>();
+
+
 
     public static class Row {
         public int defaultWidth;
@@ -65,8 +64,7 @@ public class Keyboard {
         public int defaultHorizontalGap;
         public int verticalGap;
         public int y;
-        ArrayList<Key> mKeys = new ArrayList<Key>();
-
+        public ArrayList<Key> mKeys = new ArrayList<Key>();
 
         private Keyboard parent;
 
@@ -103,6 +101,10 @@ public class Keyboard {
         public static final int STYLE_NORMAL = 0;
         public static final int STYLE_LIGHT = 1;
 
+        public static final int PREVIEW_DIR_LEFT = 1;
+        public static final int PREVIEW_DIR_CENTER = 2;
+        public static final int PREVIEW_DIR_RIGHT = 3;
+        public static final int PREVIEW_NOT_SHOW = 0;
 
         public int code;
 
@@ -117,6 +119,7 @@ public class Keyboard {
         public boolean pressed;
         public int style;
         public boolean checked;
+        public int previewDir = PREVIEW_NOT_SHOW;
 
         private Keyboard keyboard;
 
@@ -155,6 +158,11 @@ public class Keyboard {
             style = a.getInt(R.styleable.Keyboard_External_Key_keyStyle, STYLE_NORMAL);
 
             checked = a.getBoolean(R.styleable.Keyboard_External_Key_keyChecked, false);
+
+            previewDir = a.getInt(R.styleable.Keyboard_External_Key_keyPreviewDir, PREVIEW_DIR_CENTER);
+
+            a.recycle();
+
             a = res.obtainAttributes(Xml.asAttributeSet(parser), R.styleable.Keyboard_Key);
 
             icon = a.getDrawable(
@@ -169,31 +177,26 @@ public class Keyboard {
         @Override
         public String toString() {
             return "Key{" +
-                    " label=" + label +
+                    "code=" + code +
+                    ", label=" + label +
+                    ", icon=" + icon +
                     ", width=" + width +
                     ", height=" + height +
                     ", gap=" + gap +
                     ", x=" + x +
                     ", y=" + y +
+                    ", pressed=" + pressed +
+                    ", style=" + style +
+                    ", checked=" + checked +
+                    ", previewDir=" + previewDir +
                     '}';
         }
     }
 
-
-    /**
-     * Creates a keyboard from the given xml key layout file. Weeds out rows
-     * that have a keyboard mode defined but don't match the specified mode.
-     *
-     * @param context        the application or service context
-     * @param xmlLayoutResId the resource file that contains the keyboard layout and keys.
-     * @param modeId         keyboard mode identifier
-     */
     public Keyboard(Context context, @XmlRes int xmlLayoutResId) {
         DisplayMetrics dm = context.getResources().getDisplayMetrics();
         mDisplayWidth = dm.widthPixels;
         mDisplayHeight = dm.heightPixels;
-        //Log.v(TAG, "keyboard's display metrics:" + dm);
-
         mDefaultHorizontalGap = 0;
         mDefaultWidth = mDisplayWidth / 10;
         mDefaultVerticalGap = 0;
@@ -233,11 +236,6 @@ public class Keyboard {
         mDefaultWidth = width;
     }
 
-    /**
-     * Returns the total height of the keyboard
-     *
-     * @return the total height of the keyboard
-     */
     public int getHeight() {
         return mTotalHeight;
     }
@@ -246,6 +244,13 @@ public class Keyboard {
         return mTotalWidth;
     }
 
+    public List<Key> getKeys() {
+        return mKeys;
+    }
+
+    public ArrayList<Row> getRows() {
+        return rows;
+    }
 
     protected Row createRowFromXml(Resources res, XmlResourceParser parser) {
         return new Row(res, this, parser);
@@ -259,7 +264,6 @@ public class Keyboard {
     private void loadKeyboard(Context context, XmlResourceParser parser) {
         boolean inKey = false;
         boolean inRow = false;
-        int row = 0;
         int x = 0;
         int y = 0;
         Key key = null;
@@ -295,9 +299,6 @@ public class Keyboard {
                     } else if (inRow) {
                         inRow = false;
                         y += currentRow.defaultHeight;
-                        row++;
-                    } else {
-                        // TODO: error or extend?
                     }
                 }
             }
@@ -307,7 +308,6 @@ public class Keyboard {
         }
         mTotalHeight = y + mDefaultVerticalGap;
     }
-
 
     private void parseKeyboardAttributes(Resources res, XmlResourceParser parser) {
         TypedArray a = res.obtainAttributes(Xml.asAttributeSet(parser),
@@ -334,7 +334,6 @@ public class Keyboard {
         if (value.type == TypedValue.TYPE_DIMENSION) {
             return a.getDimensionPixelOffset(index, defValue);
         } else if (value.type == TypedValue.TYPE_FRACTION) {
-            // Round it to avoid values like 47.9999 from getting truncated
             return Math.round(a.getFraction(index, base, base, defValue));
         }
         return defValue;

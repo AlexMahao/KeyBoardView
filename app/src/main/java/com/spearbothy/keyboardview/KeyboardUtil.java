@@ -48,8 +48,8 @@ public class KeyboardUtil implements KeyboardView.OnKeyboardActionListener {
             super.handleMessage(msg);
             // 用于scrollView 滚动
             if (msg.what == mEditText.getId()) {
-                if (mScrollView != null)
-                    mScrollView.smoothScrollTo(0, mScrollTo);
+             /*   if (mScrollView != null)
+                   // mScrollView.smoothScrollTo(0, mScrollTo);*/
             }
         }
     };
@@ -102,19 +102,19 @@ public class KeyboardUtil implements KeyboardView.OnKeyboardActionListener {
         }
     }
 
-    public void showKeyBoardLayout(final EditText editText, int keyBoardType, int scrollTo) {
+    public void showKeyBoardLayout(final EditText editText, int keyBoardType) {
 
         if (isShow && editText.equals(mEditText)) {
             // 正在显示，且是相同editText ，不做处理
             return;
         } else if (isShow && !editText.equals(mEditText)) {
             // 正在显示，但输入框变化，则切换键盘类型
-            switchKeyBoardType(editText, keyBoardType, scrollTo);
+            switchKeyBoardType(editText, keyBoardType);
             return;
         }
         mInputType = keyBoardType;
-        mScrollTo = scrollTo;
         mEditText = editText;
+        mScrollTo = calculateMoveHeight();
 
         if (hideSystemKeyboard(editText)) {
             new Handler().postDelayed(new Runnable() {
@@ -129,9 +129,15 @@ public class KeyboardUtil implements KeyboardView.OnKeyboardActionListener {
         }
     }
 
-    public void switchKeyBoardType(EditText editText, int type, int scrollTo) {
-        mScrollTo = scrollTo;
+    public int calculateMoveHeight() {
+        int[] location = new int[2];
+        mEditText.getLocationOnScreen(location);
+        return (location[1] + mKeyboardView.getMeasuredHeight() + mEditText.getHeight()) - mScrollView.getMeasuredHeight();
+    }
+
+    public void switchKeyBoardType(EditText editText, int type) {
         mEditText = editText;
+        mScrollTo = calculateMoveHeight();
         mKeyboardView.replace(type);
         if (mScrollTo >= 0) {
             keyBoardScroll();
@@ -150,8 +156,7 @@ public class KeyboardUtil implements KeyboardView.OnKeyboardActionListener {
         }
     }
 
-
-    //滑动监听
+    //滚动editText
     private void keyBoardScroll() {
         mRootView.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
@@ -192,9 +197,7 @@ public class KeyboardUtil implements KeyboardView.OnKeyboardActionListener {
     }
 
     @Override
-    public void onPress(Keyboard.Key key) {
-
-    }
+    public void onPress(Keyboard.Key key) {}
 
     @Override
     public void onRelease(Keyboard.Key key) {

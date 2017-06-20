@@ -21,9 +21,8 @@ public class KeyboardTouchListener implements View.OnTouchListener {
     @Override
     public boolean onTouch(View v, MotionEvent event) {
         if (event.getAction() == MotionEvent.ACTION_UP) {
-            //
-            if(keyboardUtil!=null){
-                keyboardUtil.showKeyBoardLayout((EditText) v, keyboardType, scrollTo);
+            if (keyboardUtil != null) {
+                keyboardUtil.showKeyBoardLayout((EditText) v, keyboardType);
             }
         }
         return false;

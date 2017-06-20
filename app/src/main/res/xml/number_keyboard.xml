@@ -1,27 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Keyboard xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:horizontalGap="2.2%p"
-    app:keyHeight="40dp"
-    app:keyWidth="30.6%p"
-    app:verticalGap="9dp">
+    app:horizontalGap="2.3148%p"
+    app:keyHeight="6.20%p"
+    app:keyWidth="30.5555%p"
+    app:verticalGap="0.80%p">
     <Row>
-        <Key app:horizontalGap="1.9%p"  app:keycode="23" app:keyLabel="7"/>
-        <Key app:keycode="23" app:keyLabel="8"/>
-        <Key app:keycode="23" app:keyLabel="9"/>
+        <Key app:horizontalGap="1.8520%p" app:keyPreviewDir="none"  app:keycode="23" app:keyLabel="7"/>
+        <Key app:keycode="23" app:keyLabel="8" app:keyPreviewDir="none" />
+        <Key app:keycode="23" app:keyLabel="9" app:keyPreviewDir="none"/>
     </Row>
     <Row >
-        <Key app:horizontalGap="1.9%p"  app:keycode="23" app:keyLabel="4"/>
-        <Key app:keycode="23" app:keyLabel="5"/>
-        <Key app:keycode="23" app:keyLabel="6"/>
+        <Key app:horizontalGap="1.8520%p"  app:keycode="23" app:keyLabel="4" app:keyPreviewDir="none"/>
+        <Key app:keycode="23" app:keyLabel="5" app:keyPreviewDir="none"/>
+        <Key app:keycode="23" app:keyLabel="6" app:keyPreviewDir="none"/>
     </Row>
     <Row>
-        <Key app:horizontalGap="1.9%p"  app:keycode="23" app:keyLabel="1"/>
-        <Key app:keycode="23" app:keyLabel="2"/>
-        <Key app:keycode="23" app:keyLabel="3"/>
+        <Key app:horizontalGap="1.8520%p"  app:keycode="23" app:keyLabel="1" app:keyPreviewDir="none"/>
+        <Key app:keycode="23" app:keyLabel="2" app:keyPreviewDir="none"/>
+        <Key app:keycode="23" app:keyLabel="3" app:keyPreviewDir="none"/>
     </Row>
     <Row>
-        <Key app:horizontalGap="1.9%p"  app:keycode="-1" app:keyLabel="abc" app:keyStyle="light"/>
-        <Key app:keycode="23" app:keyLabel="0"/>
-        <Key app:keycode="0" app:keyIcon="@drawable/keyboard_delete" app:keyStyle="light"/>
+        <Key app:horizontalGap="1.8520%p"  app:keycode="-1" app:keyLabel="abc" app:keyStyle="light" app:keyPreviewDir="none"/>
+        <Key app:keycode="23" app:keyLabel="0" app:keyPreviewDir="none"/>
+        <Key app:keycode="0" app:keyIcon="@drawable/keyboard_delete" app:keyStyle="light" app:keyPreviewDir="none"/>
     </Row>
 </Keyboard>

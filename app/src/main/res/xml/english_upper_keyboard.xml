@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Keyboard xmlns:app="http://schemas.android.com/apk/res-auto"
-    app:horizontalGap="1.3%"
-    app:keyHeight="40dp"
-    app:keyWidth="8.6%p"
-    app:verticalGap="9dp">
+    app:horizontalGap="1.2963%p"
+    app:keyHeight="6.20%p"
+    app:keyWidth="8.6111%p"
+    app:verticalGap="0.80%p">
     <Row>
-        <Key app:horizontalGap="1.15%p"  app:keycode="23" app:keyLabel="Q"/>
+        <Key app:horizontalGap="1.1112%p" app:keyPreviewDir="left" app:keycode="23" app:keyLabel="Q"/>
         <Key app:keycode="23" app:keyLabel="W"/>
         <Key app:keycode="23" app:keyLabel="E"/>
         <Key app:keycode="23" app:keyLabel="R"/>
@@ -14,10 +14,10 @@
         <Key app:keycode="23" app:keyLabel="U"/>
         <Key app:keycode="23" app:keyLabel="I"/>
         <Key app:keycode="23" app:keyLabel="O"/>
-        <Key app:keycode="23" app:keyLabel="P"/>
+        <Key app:keycode="23" app:keyLabel="P" app:keyPreviewDir="right"/>
     </Row>
     <Row>
-        <Key app:horizontalGap="6.1%p" app:keycode="23" app:keyLabel="A"/>
+        <Key app:horizontalGap="6.0649%p" app:keycode="23" app:keyLabel="A"/>
         <Key app:keycode="23" app:keyLabel="S"/>
         <Key app:keycode="23" app:keyLabel="D"/>
         <Key app:keycode="23" app:keyLabel="F"/>
@@ -27,19 +27,19 @@
         <Key app:keycode="23" app:keyLabel="K"/>
         <Key app:keycode="23" app:keyLabel="L"/>
     </Row>
-    <Row >
-        <Key  app:horizontalGap="1.15%p" app:keyStyle="light" app:keyIcon="@drawable/keyboard_replace" app:keycode="-1"  app:keyWidth="10.8%p"/>
-        <Key  app:horizontalGap="4.05%p" app:keycode="23" app:keyLabel="Z"/>
+    <Row>
+        <Key  app:horizontalGap="1.1112%p" app:keyPreviewDir="none" app:keyStyle="light" app:keyIcon="@drawable/keyboard_replace" app:keycode="-1"  app:keyWidth="10.8333%p"/>
+        <Key  app:horizontalGap="4.0741%p" app:keycode="23" app:keyLabel="Z"/>
         <Key app:keycode="23" app:keyLabel="X"/>
         <Key app:keycode="23" app:keyLabel="C"/>
         <Key app:keycode="23" app:keyLabel="V"/>
         <Key app:keycode="23" app:keyLabel="B"/>
         <Key app:keycode="23" app:keyLabel="N"/>
         <Key app:keycode="23" app:keyLabel="M"/>
-        <Key app:horizontalGap="4.05%p" app:keycode="0" app:keyIcon="@drawable/keyboard_delete" app:keyWidth="10.8%p" app:keyStyle="light"/>
+        <Key app:horizontalGap="3.9815%p" app:keycode="0" app:keyPreviewDir="none" app:keyIcon="@drawable/keyboard_delete" app:keyWidth="10.8333%p" app:keyStyle="light"/>
     </Row>
     <Row >
-        <Key app:horizontalGap="1.15%p" app:keycode="-3" app:keyStyle="light" app:keyLabel="123" app:keyWidth="23.5%p"/>
-        <Key app:horizontalGap="50.7%p" app:keycode="-4" app:keyStyle="light" app:keyLabel="#+=" app:keyWidth="23.5%p"/>
+        <Key app:horizontalGap="1.1112%p" app:keycode="-3" app:keyPreviewDir="none" app:keyStyle="light" app:keyLabel="123" app:keyWidth="23.5185%p"/>
+        <Key app:horizontalGap="50.7406%p" app:keycode="-4"  app:keyPreviewDir="none" app:keyStyle="light" app:keyLabel="#+=" app:keyWidth="23.5185%p"/>
     </Row>
 </Keyboard>
