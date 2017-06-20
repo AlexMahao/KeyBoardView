@@ -10,12 +10,10 @@ import android.widget.EditText;
 public class KeyboardTouchListener implements View.OnTouchListener {
     private KeyboardUtil keyboardUtil;
     private int keyboardType = 1;
-    private int scrollTo = -1;
 
-    public KeyboardTouchListener(KeyboardUtil util, int keyboardType, int scrollTo) {
+    public KeyboardTouchListener(KeyboardUtil util, int keyboardType) {
         this.keyboardUtil = util;
         this.keyboardType = keyboardType;
-        this.scrollTo = scrollTo;
     }
 
     @Override

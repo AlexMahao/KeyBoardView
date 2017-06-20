@@ -18,13 +18,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="用户名" />
-            <com.spearbothy.keyboardview.KeyboardEditText
+            <EditText
                 android:id="@+id/special"
                 android:inputType="textPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="特殊键盘" />
-            <com.spearbothy.keyboardview.KeyboardEditText
+            <EditText
                 android:id="@+id/special1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -58,7 +58,7 @@
                 android:text="站位"
                 android:layout_width="20dp"
                 android:layout_height="wrap_content" />
-            <com.spearbothy.keyboardview.KeyboardEditText
+            <EditText
                 android:id="@+id/special2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

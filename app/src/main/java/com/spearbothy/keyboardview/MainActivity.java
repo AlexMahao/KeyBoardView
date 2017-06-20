@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        if(mKeyboardUtil.isShow) {
+        if (mKeyboardUtil.isShow) {
             mKeyboardUtil.hideKeyboardLayout();
             return;
         }
@@ -48,8 +48,8 @@ public class MainActivity extends AppCompatActivity {
     private void initKeyBoard() {
         mKeyboardUtil = new KeyboardUtil(this, mRootView, mScrollView);
         mKeyboardUtil.setNormalEditTextTouchListener(mNormalEt, mNormalEt1);
-        mSpecialEt.setOnTouchListener(new KeyboardTouchListener(mKeyboardUtil, KeyboardView.TYPE_NUMBER, -1));
-        mSpecialEt1.setOnTouchListener(new KeyboardTouchListener(mKeyboardUtil, KeyboardView.TYPE_ENGLISH_LOWER, -1));
-        mSpecialEt2.setOnTouchListener(new KeyboardTouchListener(mKeyboardUtil, KeyboardView.TYPE_ENGLISH_LOWER, -1));
+        mKeyboardUtil.setSpecialListener(mSpecialEt, KeyboardView.TYPE_NUMBER);
+        mKeyboardUtil.setSpecialListener(mSpecialEt1, KeyboardView.TYPE_NUMBER);
+        mKeyboardUtil.setSpecialListener(mSpecialEt2, KeyboardView.TYPE_NUMBER);
     }
 }

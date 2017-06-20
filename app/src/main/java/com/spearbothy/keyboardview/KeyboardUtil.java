@@ -2,9 +2,11 @@ package com.spearbothy.keyboardview;
 
 import android.app.Activity;
 import android.content.Context;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -14,6 +16,9 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 /**
  * Created by mahao on 17-6-16.
@@ -46,7 +51,6 @@ public class KeyboardUtil implements KeyboardView.OnKeyboardActionListener {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            // 用于scrollView 滚动
             if (msg.what == mEditText.getId()) {
              /*   if (mScrollView != null)
                    // mScrollView.smoothScrollTo(0, mScrollTo);*/
@@ -86,13 +90,6 @@ public class KeyboardUtil implements KeyboardView.OnKeyboardActionListener {
                 @Override
                 public boolean onTouch(View v, MotionEvent event) {
                     if (event.getAction() == MotionEvent.ACTION_UP) {
-                        //防止没有隐藏键盘的情况出现
-                        new Handler().postDelayed(new Runnable() {
-                            @Override
-                            public void run() {
-                                hideKeyboardLayout();
-                            }
-                        }, 300);
                         mEditText = (EditText) v;
                         hideKeyboardLayout();
                     }
@@ -218,5 +215,46 @@ public class KeyboardUtil implements KeyboardView.OnKeyboardActionListener {
         String temp = editable.subSequence(0, start - 1) + "" + editable.subSequence(start, editable.length());
         mEditText.setText(temp);
         mEditText.setSelection(start - 1);
+    }
+
+    public void setSpecialListener(EditText editText, int type) {
+        setEditTextInputFocus(editText, false);
+        editText.setOnTouchListener(new KeyboardTouchListener(this, type));
+    }
+
+    /**
+     * 禁止系统输入法
+     */
+    public void setEditTextInputFocus(EditText editText, boolean show) {
+        if (Build.VERSION.SDK_INT >= 21) {
+            editText.setShowSoftInputOnFocus(false);
+            return;
+        }
+        int currentVersion = android.os.Build.VERSION.SDK_INT;
+        String methodName = null;
+        if (currentVersion >= 16) {
+            // 4.2
+            methodName = "setShowSoftInputOnFocus";
+        } else if (currentVersion >= 14) {
+            // 4.0
+            methodName = "setSoftInputShownOnFocus";
+        }
+        Class<EditText> cls = EditText.class;
+        Method setShowSoftInputOnFocus;
+        try {
+            setShowSoftInputOnFocus = cls.getMethod(methodName,
+                    boolean.class);
+            setShowSoftInputOnFocus.setAccessible(true);
+            setShowSoftInputOnFocus.invoke(editText, show);
+        } catch (NoSuchMethodException e) {
+            editText.setInputType(InputType.TYPE_NULL);
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (IllegalArgumentException e) {
+            e.printStackTrace();
+        } catch (InvocationTargetException e) {
+            e.printStackTrace();
+        }
     }
 }
