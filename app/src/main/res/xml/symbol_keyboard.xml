@@ -5,45 +5,45 @@
     app:keyWidth="8.6111%p"
     app:verticalGap="0.80%p">
     <Row>
-        <Key app:horizontalGap="1.1112%p" app:keyPreviewDir="left"  app:keycode="23" app:keyLabel="!"/>
-        <Key app:keycode="23" app:keyLabel="\@"/>
-        <Key app:keycode="23" app:keyLabel="#"/>
-        <Key app:keycode="23" app:keyLabel="$"/>
-        <Key app:keycode="23" app:keyLabel="%"/>
-        <Key app:keycode="23" app:keyLabel="^"/>
-        <Key app:keycode="23" app:keyLabel="&amp;"/>
-        <Key app:keycode="23" app:keyLabel="*"/>
-        <Key app:keycode="23" app:keyLabel="("/>
-        <Key app:keycode="23" app:keyLabel=")" app:keyPreviewDir="right"/>
+        <Key app:horizontalGap="1.1112%p" app:keyPreviewDir="left" app:keycode="33" app:keyLabel="!"/>
+        <Key app:keycode="64" app:keyLabel="\@"/>
+        <Key app:keycode="35" app:keyLabel="#"/>
+        <Key app:keycode="36" app:keyLabel="$"/>
+        <Key app:keycode="37" app:keyLabel="%"/>
+        <Key app:keycode="94" app:keyLabel="^"/>
+        <Key app:keycode="38" app:keyLabel="&amp;"/>
+        <Key app:keycode="42" app:keyLabel="*"/>
+        <Key app:keycode="40" app:keyLabel="("/>
+        <Key app:keycode="41" app:keyLabel=")" app:keyPreviewDir="right"/>
     </Row>
     <Row>
-        <Key app:horizontalGap="6.0649%p" app:keycode="23" app:keyLabel="&apos;"/>
-        <Key app:keycode="23" app:keyLabel="&quot;"/>
-        <Key app:keycode="23" app:keyLabel="="/>
-        <Key app:keycode="23" app:keyLabel="_"/>
-        <Key app:keycode="23" app:keyLabel=":"/>
-        <Key app:keycode="23" app:keyLabel=";"/>
-        <Key app:keycode="23" app:keyLabel="\?"/>
-        <Key app:keycode="23" app:keyLabel="~"/>
-        <Key app:keycode="23" app:keyLabel="|"/>
+        <Key app:horizontalGap="6.0649%p" app:keycode="39" app:keyLabel="&apos;"/>
+        <Key app:keycode="34" app:keyLabel="&quot;"/>
+        <Key app:keycode="61" app:keyLabel="="/>
+        <Key app:keycode="95" app:keyLabel="_"/>
+        <Key app:keycode="58" app:keyLabel=":"/>
+        <Key app:keycode="59" app:keyLabel=";"/>
+        <Key app:keycode="63" app:keyLabel="\?"/>
+        <Key app:keycode="126" app:keyLabel="~"/>
+        <Key app:keycode="124" app:keyLabel="|"/>
     </Row>
     <Row>
-        <Key app:horizontalGap="6.0649%p" app:keycode="23" app:keyLabel="+"/>
-        <Key app:keycode="23" app:keyLabel="-"/>
-        <Key app:keycode="23" app:keyLabel="\\"/>
-        <Key app:keycode="23" app:keyLabel="/"/>
-        <Key app:keycode="23" app:keyLabel="["/>
-        <Key app:keycode="23" app:keyLabel="]"/>
-        <Key app:keycode="23" app:keyLabel="{"/>
-        <Key app:keycode="23" app:keyLabel="}"/>
-        <Key app:horizontalGap="4.0277%p" app:keycode="0" app:keyPreviewDir="none" app:keyIcon="@drawable/keyboard_delete" app:keyWidth="10.8333%p" app:keyStyle="light"/>
+        <Key app:horizontalGap="6.0649%p" app:keycode="43" app:keyLabel="+"/>
+        <Key app:keycode="45" app:keyLabel="-"/>
+        <Key app:keycode="92" app:keyLabel="\\"/>
+        <Key app:keycode="47" app:keyLabel="/"/>
+        <Key app:keycode="91" app:keyLabel="["/>
+        <Key app:keycode="93" app:keyLabel="]"/>
+        <Key app:keycode="123" app:keyLabel="{"/>
+        <Key app:keycode="125" app:keyLabel="}"/>
+        <Key app:horizontalGap="4.0277%p" app:keycode="0" app:isRepeat="true" app:keyPreviewDir="none" app:keyIcon="@drawable/keyboard_delete" app:keyWidth="10.8333%p" app:keyStyle="light"/>
     </Row>
     <Row>
         <Key app:horizontalGap="1.1112%p" app:keycode="-3" app:keyPreviewDir="none" app:keyLabel="123" app:keyWidth="23.5185%p" app:keyStyle="light"/>
-        <Key app:keycode="23" app:horizontalGap="6.2037%p" app:keyLabel=","/>
-        <Key app:keycode="23" app:keyLabel="."/>
-        <Key app:keycode="23" app:keyLabel="&lt;"/>
-        <Key app:keycode="23" app:keyLabel="&gt;"/>
+        <Key app:keycode="44" app:horizontalGap="6.2037%p" app:keyLabel=","/>
+        <Key app:keycode="46" app:keyLabel="."/>
+        <Key app:keycode="60" app:keyLabel="&lt;"/>
+        <Key app:keycode="62" app:keyLabel="&gt;"/>
         <Key app:horizontalGap="6.2037%p" app:keycode="-1" app:keyPreviewDir="none" app:keyStyle="light" app:keyLabel="abc" app:keyWidth="23.5185%p"/>
     </Row>
 </Keyboard>

@@ -5,18 +5,18 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
     <RelativeLayout
+        android:id="@+id/top_layout"
         android:layout_width="match_parent"
         android:layout_height="27dp"
         android:background="#888F99">
         <TextView
+            android:id="@+id/tip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:drawableLeft="@drawable/keyboard_icon"
             android:drawablePadding="3dp"
-            android:text="狐狸慧赚 安全键盘"
-            android:textColor="#fff"
-            android:textSize="10sp" />
+            android:text="安全键盘"
+            android:textColor="#9fff" />
         <TextView
             android:id="@+id/close"
             android:layout_width="wrap_content"
@@ -24,9 +24,9 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="10dp"
+            android:background="?attr/actionBarItemBackground"
             android:text="完成"
-            android:textColor="#fff"
-            android:textSize="11sp" />
+            android:textColor="#fff" />
         <View
             android:layout_width="match_parent"
             android:layout_height="1px"

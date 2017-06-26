@@ -20,10 +20,15 @@
                 android:hint="用户名" />
             <EditText
                 android:id="@+id/special"
-                android:inputType="textPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="特殊键盘" />
+                android:hint="特殊键盘"
+                android:inputType="textPassword" />
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="弹出对话框"
+                android:onClick="showDialog" />
             <EditText
                 android:id="@+id/special1"
                 android:layout_width="match_parent"
@@ -35,29 +40,29 @@
                 android:layout_height="wrap_content"
                 android:hint="用户名" />
             <TextView
-                android:text="站位"
                 android:layout_width="20dp"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:text="站位" />
             <TextView
-                android:text="站位"
                 android:layout_width="20dp"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:text="站位" />
             <TextView
-                android:text="站位"
                 android:layout_width="20dp"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:text="站位" />
             <TextView
-                android:text="站位"
                 android:layout_width="20dp"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:text="站位" />
             <TextView
-                android:text="站位"
                 android:layout_width="20dp"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:text="站位" />
             <TextView
-                android:text="站位"
                 android:layout_width="20dp"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:text="站位" />
             <EditText
                 android:id="@+id/special2"
                 android:layout_width="match_parent"

@@ -6,6 +6,7 @@ import android.content.res.TypedArray;
 import android.content.res.XmlResourceParser;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.XmlRes;
+import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.TypedValue;
@@ -14,9 +15,7 @@ import android.util.Xml;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class Keyboard {
-
     static final String TAG = "Keyboard";
 
     // Keyboard XML Tags
@@ -30,8 +29,6 @@ public class Keyboard {
     public static final int KEYCODE_MODE_CHANGE_TO_SYMBOL = -4;
     public static final int KEYCODE_DELETE = 0;
 
-    private CharSequence mLabel;
-
     private int mDefaultHorizontalGap;
 
     private int mDefaultWidth;
@@ -39,10 +36,6 @@ public class Keyboard {
     private int mDefaultHeight;
 
     private int mDefaultVerticalGap;
-
-    private int mKeyWidth;
-
-    private int mKeyHeight;
 
     private int mTotalHeight;
 
@@ -52,11 +45,18 @@ public class Keyboard {
 
     private int mDisplayHeight;
 
+    private boolean mIsRandom = false;
+
     private List<Key> mKeys = new ArrayList<>();
 
-    private ArrayList<Row> rows = new ArrayList<Row>();
+    private ArrayList<Row> mRows = new ArrayList<Row>();
 
-
+    public void random() {
+        if (mIsRandom) {
+            // 打乱顺序
+            randomKeys();
+        }
+    }
 
     public static class Row {
         public int defaultWidth;
@@ -67,10 +67,6 @@ public class Keyboard {
         public ArrayList<Key> mKeys = new ArrayList<Key>();
 
         private Keyboard parent;
-
-        public Row(Keyboard parent) {
-            this.parent = parent;
-        }
 
         public Row(Resources res, Keyboard parent, XmlResourceParser parser) {
             this.parent = parent;
@@ -107,9 +103,7 @@ public class Keyboard {
         public static final int PREVIEW_NOT_SHOW = 0;
 
         public int code;
-
         public CharSequence label;
-
         public Drawable icon;
         public int width;
         public int height;
@@ -120,6 +114,9 @@ public class Keyboard {
         public int style;
         public boolean checked;
         public int previewDir = PREVIEW_NOT_SHOW;
+        public boolean isRandom;
+        public boolean isRepeat;
+        public CharSequence text;
 
         private Keyboard keyboard;
 
@@ -138,7 +135,6 @@ public class Keyboard {
 
             TypedArray a = res.obtainAttributes(Xml.asAttributeSet(parser),
                     R.styleable.Keyboard);
-
             width = getDimensionOrFraction(a,
                     R.styleable.Keyboard_keyWidth,
                     keyboard.mDisplayWidth, parent.defaultWidth);
@@ -149,28 +145,29 @@ public class Keyboard {
                     R.styleable.Keyboard_horizontalGap,
                     keyboard.mDisplayWidth, parent.defaultHorizontalGap);
             a.recycle();
+
             this.x += gap;
 
             a = res.obtainAttributes(Xml.asAttributeSet(parser), R.styleable.Keyboard_External_Key);
-
             code = a.getInteger(R.styleable.Keyboard_External_Key_keycode, 0);
-
             style = a.getInt(R.styleable.Keyboard_External_Key_keyStyle, STYLE_NORMAL);
-
             checked = a.getBoolean(R.styleable.Keyboard_External_Key_keyChecked, false);
-
             previewDir = a.getInt(R.styleable.Keyboard_External_Key_keyPreviewDir, PREVIEW_DIR_CENTER);
-
+            isRandom = a.getBoolean(R.styleable.Keyboard_External_Key_isRandom, false);
+            isRepeat = a.getBoolean(R.styleable.Keyboard_External_Key_isRepeat, false);
             a.recycle();
 
             a = res.obtainAttributes(Xml.asAttributeSet(parser), R.styleable.Keyboard_Key);
-
             icon = a.getDrawable(
                     R.styleable.Keyboard_Key_keyIcon);
             if (icon != null) {
                 icon.setBounds(0, 0, icon.getIntrinsicWidth(), icon.getIntrinsicHeight());
             }
             label = a.getText(R.styleable.Keyboard_Key_keyLabel);
+            text = a.getText(R.styleable.Keyboard_Key_keyOutputText);
+            if (TextUtils.isEmpty(text)) {
+                text = label;
+            }
             a.recycle();
         }
 
@@ -202,54 +199,49 @@ public class Keyboard {
         mDefaultVerticalGap = 0;
         mDefaultHeight = mDefaultWidth;
         loadKeyboard(context, context.getResources().getXml(xmlLayoutResId));
+        if (mIsRandom) {
+            // 打乱顺序
+            randomKeys();
+        }
     }
 
-    protected int getHorizontalGap() {
-        return mDefaultHorizontalGap;
+    private void randomKeys() {
+        for (int i = 0; i < mKeys.size(); i++) {
+            Key key = mKeys.get(i);
+            if (key.isRandom) {
+                Key targetKey = mKeys.get((int) (Math.random() * mKeys.size()));
+                if (targetKey.isRandom) {
+                    swapKey(key, targetKey);
+                }
+            }
+        }
     }
 
-    protected void setHorizontalGap(int gap) {
-        mDefaultHorizontalGap = gap;
-    }
-
-    protected int getVerticalGap() {
-        return mDefaultVerticalGap;
-    }
-
-    protected void setVerticalGap(int gap) {
-        mDefaultVerticalGap = gap;
-    }
-
-    protected int getKeyHeight() {
-        return mDefaultHeight;
-    }
-
-    protected void setKeyHeight(int height) {
-        mDefaultHeight = height;
-    }
-
-    protected int getKeyWidth() {
-        return mDefaultWidth;
-    }
-
-    protected void setKeyWidth(int width) {
-        mDefaultWidth = width;
-    }
-
-    public int getHeight() {
-        return mTotalHeight;
-    }
-
-    public int getMinWidth() {
-        return mTotalWidth;
-    }
-
-    public List<Key> getKeys() {
-        return mKeys;
-    }
-
-    public ArrayList<Row> getRows() {
-        return rows;
+    private void swapKey(Key source, Key target) {
+        CharSequence tempLabel = source.label;
+        int tempCode = source.code;
+        int tempStyle = source.style;
+        boolean tempCheck = source.checked;
+        int tempPreviewDir = source.previewDir;
+        boolean tempIsRepeat = source.isRepeat;
+        CharSequence tempText = source.text;
+        Drawable tempIcon = source.icon;
+        source.label = target.label;
+        source.code = target.code;
+        source.style = target.style;
+        source.checked = target.checked;
+        source.previewDir = target.previewDir;
+        source.isRepeat = target.isRepeat;
+        source.text = target.text;
+        source.icon = target.icon;
+        target.label = tempLabel;
+        target.code = tempCode;
+        target.style = tempStyle;
+        target.checked = tempCheck;
+        target.previewDir = tempPreviewDir;
+        target.isRepeat = tempIsRepeat;
+        target.text = tempText;
+        target.icon = tempIcon;
     }
 
     protected Row createRowFromXml(Resources res, XmlResourceParser parser) {
@@ -280,10 +272,13 @@ public class Keyboard {
                         currentRow = createRowFromXml(res, parser);
                         y += currentRow.verticalGap;
                         currentRow.y = y;
-                        rows.add(currentRow);
+                        mRows.add(currentRow);
                     } else if (TAG_KEY.equals(tag)) {
                         inKey = true;
                         key = createKeyFromXml(res, currentRow, x, y, parser);
+                        if (key.isRandom) {
+                            mIsRandom = true;
+                        }
                         mKeys.add(key);
                         currentRow.mKeys.add(key);
                     } else if (TAG_KEYBOARD.equals(tag)) {
@@ -337,5 +332,53 @@ public class Keyboard {
             return Math.round(a.getFraction(index, base, base, defValue));
         }
         return defValue;
+    }
+
+    protected int getHorizontalGap() {
+        return mDefaultHorizontalGap;
+    }
+
+    protected void setHorizontalGap(int gap) {
+        mDefaultHorizontalGap = gap;
+    }
+
+    protected int getVerticalGap() {
+        return mDefaultVerticalGap;
+    }
+
+    protected void setVerticalGap(int gap) {
+        mDefaultVerticalGap = gap;
+    }
+
+    protected int getKeyHeight() {
+        return mDefaultHeight;
+    }
+
+    protected void setKeyHeight(int height) {
+        mDefaultHeight = height;
+    }
+
+    protected int getKeyWidth() {
+        return mDefaultWidth;
+    }
+
+    protected void setKeyWidth(int width) {
+        mDefaultWidth = width;
+    }
+
+    public int getHeight() {
+        return mTotalHeight;
+    }
+
+    public int getMinWidth() {
+        return mTotalWidth;
+    }
+
+    public List<Key> getKeys() {
+        return mKeys;
+    }
+
+    public ArrayList<Row> getRows() {
+        return mRows;
     }
 }

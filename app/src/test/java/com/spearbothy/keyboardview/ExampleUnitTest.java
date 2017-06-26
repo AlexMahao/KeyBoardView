@@ -2,6 +2,8 @@ package com.spearbothy.keyboardview;
 
 import org.junit.Test;
 
+import java.text.DecimalFormat;
+
 import static org.junit.Assert.*;
 
 /**
@@ -10,8 +12,11 @@ import static org.junit.Assert.*;
  * @see <a href="http://d.android.com/tools/testing">Testing documentation</a>
  */
 public class ExampleUnitTest {
+
+    private static final String FORMAT_NUMBER_DECIMAL_1 = "00";
     @Test
     public void addition_isCorrect() throws Exception {
-        assertEquals(4, 2 + 2);
+        String format = new DecimalFormat(FORMAT_NUMBER_DECIMAL_1).format(100.1);
+        System.out.printf(format);
     }
 }

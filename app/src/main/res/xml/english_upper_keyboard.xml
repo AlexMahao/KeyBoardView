@@ -5,38 +5,38 @@
     app:keyWidth="8.6111%p"
     app:verticalGap="0.80%p">
     <Row>
-        <Key app:horizontalGap="1.1112%p" app:keyPreviewDir="left" app:keycode="23" app:keyLabel="Q"/>
-        <Key app:keycode="23" app:keyLabel="W"/>
-        <Key app:keycode="23" app:keyLabel="E"/>
-        <Key app:keycode="23" app:keyLabel="R"/>
-        <Key app:keycode="23" app:keyLabel="T"/>
-        <Key app:keycode="23" app:keyLabel="Y"/>
-        <Key app:keycode="23" app:keyLabel="U"/>
-        <Key app:keycode="23" app:keyLabel="I"/>
-        <Key app:keycode="23" app:keyLabel="O"/>
-        <Key app:keycode="23" app:keyLabel="P" app:keyPreviewDir="right"/>
+        <Key app:horizontalGap="1.1112%p" app:keyPreviewDir="left" app:keycode="81" app:keyLabel="Q"/>
+        <Key app:keycode="87" app:keyLabel="W"/>
+        <Key app:keycode="69" app:keyLabel="E"/>
+        <Key app:keycode="82" app:keyLabel="R"/>
+        <Key app:keycode="84" app:keyLabel="T"/>
+        <Key app:keycode="89" app:keyLabel="Y"/>
+        <Key app:keycode="85" app:keyLabel="U"/>
+        <Key app:keycode="73" app:keyLabel="I"/>
+        <Key app:keycode="79" app:keyLabel="O"/>
+        <Key app:keycode="80" app:keyLabel="P" app:keyPreviewDir="right"/>
     </Row>
     <Row>
-        <Key app:horizontalGap="6.0649%p" app:keycode="23" app:keyLabel="A"/>
-        <Key app:keycode="23" app:keyLabel="S"/>
-        <Key app:keycode="23" app:keyLabel="D"/>
-        <Key app:keycode="23" app:keyLabel="F"/>
-        <Key app:keycode="23" app:keyLabel="G"/>
-        <Key app:keycode="23" app:keyLabel="H"/>
-        <Key app:keycode="23" app:keyLabel="J"/>
-        <Key app:keycode="23" app:keyLabel="K"/>
-        <Key app:keycode="23" app:keyLabel="L"/>
+        <Key app:horizontalGap="6.0649%p" app:keycode="65" app:keyLabel="A"/>
+        <Key app:keycode="83" app:keyLabel="S"/>
+        <Key app:keycode="68" app:keyLabel="D"/>
+        <Key app:keycode="70" app:keyLabel="F"/>
+        <Key app:keycode="71" app:keyLabel="G"/>
+        <Key app:keycode="72" app:keyLabel="H"/>
+        <Key app:keycode="74" app:keyLabel="J"/>
+        <Key app:keycode="75" app:keyLabel="K"/>
+        <Key app:keycode="76" app:keyLabel="L"/>
     </Row>
     <Row>
-        <Key  app:horizontalGap="1.1112%p" app:keyPreviewDir="none" app:keyStyle="light" app:keyIcon="@drawable/keyboard_replace" app:keycode="-1"  app:keyWidth="10.8333%p"/>
-        <Key  app:horizontalGap="4.0741%p" app:keycode="23" app:keyLabel="Z"/>
-        <Key app:keycode="23" app:keyLabel="X"/>
-        <Key app:keycode="23" app:keyLabel="C"/>
-        <Key app:keycode="23" app:keyLabel="V"/>
-        <Key app:keycode="23" app:keyLabel="B"/>
-        <Key app:keycode="23" app:keyLabel="N"/>
-        <Key app:keycode="23" app:keyLabel="M"/>
-        <Key app:horizontalGap="3.9815%p" app:keycode="0" app:keyPreviewDir="none" app:keyIcon="@drawable/keyboard_delete" app:keyWidth="10.8333%p" app:keyStyle="light"/>
+        <Key app:horizontalGap="1.1112%p" app:keyPreviewDir="none" app:keyStyle="light" app:keyIcon="@drawable/keyboard_replace" app:keycode="-1"  app:keyWidth="10.8333%p"/>
+        <Key app:horizontalGap="4.0741%p" app:keycode="90" app:keyLabel="Z"/>
+        <Key app:keycode="88" app:keyLabel="X"/>
+        <Key app:keycode="67" app:keyLabel="C"/>
+        <Key app:keycode="86" app:keyLabel="V"/>
+        <Key app:keycode="66" app:keyLabel="B"/>
+        <Key app:keycode="78" app:keyLabel="N"/>
+        <Key app:keycode="77" app:keyLabel="M"/>
+        <Key app:horizontalGap="3.9815%p" app:keycode="0" app:keyPreviewDir="none" app:isRepeat="true" app:keyIcon="@drawable/keyboard_delete" app:keyWidth="10.8333%p" app:keyStyle="light"/>
     </Row>
     <Row >
         <Key app:horizontalGap="1.1112%p" app:keycode="-3" app:keyPreviewDir="none" app:keyStyle="light" app:keyLabel="123" app:keyWidth="23.5185%p"/>
