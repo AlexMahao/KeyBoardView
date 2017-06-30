@@ -1,5 +1,6 @@
 package com.spearbothy.keyboardview;
 
+import android.animation.ValueAnimator;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Bitmap;
@@ -14,6 +15,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
+import android.util.SparseArray;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -37,6 +40,8 @@ public class KeyboardView extends View {
     public static final int TYPE_ENGLISH_UPPER = 2;
     public static final int TYPE_SYMBOL = 3;
     public static final int TYPE_IDENTITY_CARD = 4;
+
+    private SparseArray<Boolean> mDelayRandom = new SparseArray<>();
 
     private Map<Integer, Keyboard> mKeyboardMap = new HashMap<>();
 
@@ -62,6 +67,7 @@ public class KeyboardView extends View {
 
     private Paint mTextPaint;
     private Keyboard.Key mPressKey;
+    private int mType;
 
     private OnKeyboardActionListener mOnKeyboardActionListener;
 
@@ -83,6 +89,7 @@ public class KeyboardView extends View {
             }
         }
     };
+    private ValueAnimator mRandomAnim;
 
     public KeyboardView(Context context) {
         this(context, null);
@@ -129,7 +136,10 @@ public class KeyboardView extends View {
         replace(type, true);
     }
 
-    public void replace(int type, boolean isRandom) {
+    public void replace(int type, boolean isShow) {
+        if (isShow) {
+            mDelayRandom.clear();
+        }
         Keyboard keyboard = mKeyboardMap.get(type);
         if (keyboard == null) {
             if (type == TYPE_NUMBER) {
@@ -145,13 +155,18 @@ public class KeyboardView extends View {
             }
             mKeyboardMap.put(type, keyboard);
         }
-        if (isRandom) {
-            for (Map.Entry<Integer, Keyboard> entry : mKeyboardMap.entrySet()) {
-                entry.getValue().random();
-            }
-        }
         mKeyboard = keyboard;
-        invalidate();
+        if (mDelayRandom.get(type, true)) {
+            mKeyboard.random();
+            if (mKeyboard.isAnimation()) {
+                randomAnim();
+            } else {
+                invalidate();
+            }
+            mDelayRandom.put(type, false);
+        } else {
+            invalidate();
+        }
     }
 
     @Override
@@ -175,15 +190,15 @@ public class KeyboardView extends View {
 
     private void drawIcon(Keyboard.Key key, Canvas canvas) {
         canvas.save();
-        final int drawableX = (key.width - key.icon.getIntrinsicWidth()) / 2 + key.x;
-        final int drawableY = (key.height - key.icon.getIntrinsicHeight()) / 2 + key.y;
+        final int drawableX = (key.width - key.icon.getIntrinsicWidth()) / 2 + key.drawX;
+        final int drawableY = (key.height - key.icon.getIntrinsicHeight()) / 2 + key.drawY;
         canvas.translate(drawableX, drawableY);
         key.icon.draw(canvas);
         canvas.restore();
     }
 
     private void drawKeyBg(Keyboard.Key key, Canvas canvas) {
-        RectF rectF = new RectF(key.x, key.y, key.x + key.width, key.y + key.height);
+        RectF rectF = new RectF(key.drawX, key.drawY, key.drawX + key.width, key.drawY + key.height);
         if (key.checked) {
             mKeyPressPressPatch.draw(canvas, rectF);
             return;
@@ -203,9 +218,9 @@ public class KeyboardView extends View {
         Rect bounds = new Rect();
         mTextPaint.getTextBounds(String.valueOf(key.label), 0, String.valueOf(key.label).length(), bounds);
         Paint.FontMetricsInt fontMetrics = mTextPaint.getFontMetricsInt();
-        int baseline = key.y + (key.height - fontMetrics.bottom + fontMetrics.top) / 2 - fontMetrics.top;
+        int baseline = key.drawY + (key.height - fontMetrics.bottom + fontMetrics.top) / 2 - fontMetrics.top;
         canvas.drawText(String.valueOf(key.label),
-                key.x + key.width / 2 - bounds.width() / 2,
+                key.drawX + key.width / 2 - bounds.width() / 2,
                 baseline - KeyboardUtil.getFractionByHeight(getContext(), 0.002605f),
                 mTextPaint);
     }
@@ -268,8 +283,44 @@ public class KeyboardView extends View {
         } else {
             if (mOnKeyboardActionListener != null) {
                 mOnKeyboardActionListener.onRelease(key);
+                if (mKeyboard.isClickRandom() && mKeyboard.isRandom()) {
+                    mKeyboard.random();
+                    if (mKeyboard.isAnimation()) {
+                        randomAnim();
+                    } else {
+                        invalidate();
+                    }
+                } else {
+                    invalidate();
+                }
+
             }
         }
+    }
+
+    private void randomAnim() {
+        if (mRandomAnim == null) {
+            mRandomAnim = ValueAnimator.ofFloat(0, 200);
+            mRandomAnim.setDuration(200);
+            mRandomAnim.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+                @Override
+                public void onAnimationUpdate(ValueAnimator animation) {
+                    float fraction = animation.getAnimatedFraction();
+                    Log.i("KeyBoardView", fraction + "");
+                    for (Keyboard.Key key : mKeyboard.getKeys()) {
+                        if (key.isRandom) {
+                            key.drawX = (int) ((key.x - key.fromX) * fraction + key.fromX);
+                            key.drawY = (int) ((key.y - key.fromY) * fraction + key.fromY);
+                        }
+                    }
+                    invalidate();
+                }
+            });
+        }
+        if (mRandomAnim.isRunning()) {
+            mRandomAnim.end();
+        }
+        mRandomAnim.start();
     }
 
     private void processKey(int code) {

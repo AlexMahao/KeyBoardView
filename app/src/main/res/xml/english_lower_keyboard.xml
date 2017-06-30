@@ -1,41 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Keyboard xmlns:app="http://schemas.android.com/apk/res-auto"
     app:horizontalGap="1.2963%p"
+    app:isRandom="true"
+    app:isAnimation="true"
     app:keyHeight="6.20%p"
     app:keyWidth="8.6111%p"
     app:verticalGap="0.80%p">
     <Row>
-        <Key app:horizontalGap="1.1112%p" app:keyPreviewDir="left" app:keycode="113" app:keyLabel="q"/>
-        <Key app:keycode="119" app:keyLabel="w" />
-        <Key app:keycode="101" app:keyLabel="e"/>
-        <Key app:keycode="114" app:keyLabel="r"/>
-        <Key app:keycode="116" app:keyLabel="t"/>
-        <Key app:keycode="121" app:keyLabel="y"/>
-        <Key app:keycode="117" app:keyLabel="u"/>
-        <Key app:keycode="105" app:keyLabel="i"/>
-        <Key app:keycode="111" app:keyLabel="o"/>
-        <Key app:keycode="112" app:keyLabel="p" app:keyPreviewDir="right"/>
+        <Key app:horizontalGap="1.1112%p" app:keyPreviewDir="left" app:keycode="113" app:keyLabel="q" app:isRandom="true"/>
+        <Key app:keycode="119" app:keyLabel="w" app:isRandom="true"/>
+        <Key app:keycode="101" app:keyLabel="e" app:isRandom="true"/>
+        <Key app:keycode="114" app:keyLabel="r" app:isRandom="true"/>
+        <Key app:keycode="116" app:keyLabel="t" app:isRandom="true"/>
+        <Key app:keycode="121" app:keyLabel="y" app:isRandom="true"/>
+        <Key app:keycode="117" app:keyLabel="u" app:isRandom="true"/>
+        <Key app:keycode="105" app:keyLabel="i" app:isRandom="true"/>
+        <Key app:keycode="111" app:keyLabel="o" app:isRandom="true"/>
+        <Key app:keycode="112" app:keyLabel="p" app:keyPreviewDir="right" app:isRandom="true"/>
     </Row>
     <Row>
-        <Key app:horizontalGap="6.0649%p" app:keycode="97" app:keyLabel="a"/>
-        <Key app:keycode="115" app:keyLabel="s"/>
-        <Key app:keycode="100" app:keyLabel="d"/>
-        <Key app:keycode="102" app:keyLabel="f"/>
-        <Key app:keycode="103" app:keyLabel="g"/>
-        <Key app:keycode="104" app:keyLabel="h"/>
-        <Key app:keycode="106" app:keyLabel="j"/>
-        <Key app:keycode="107" app:keyLabel="k"/>
-        <Key app:keycode="108" app:keyLabel="l"/>
+        <Key app:horizontalGap="6.0649%p" app:keycode="97" app:keyLabel="a" app:isRandom="true"/>
+        <Key app:keycode="115" app:keyLabel="s" app:isRandom="true"/>
+        <Key app:keycode="100" app:keyLabel="d" app:isRandom="true"/>
+        <Key app:keycode="102" app:keyLabel="f" app:isRandom="true"/>
+        <Key app:keycode="103" app:keyLabel="g" app:isRandom="true"/>
+        <Key app:keycode="104" app:keyLabel="h" app:isRandom="true"/>
+        <Key app:keycode="106" app:keyLabel="j" app:isRandom="true"/>
+        <Key app:keycode="107" app:keyLabel="k" app:isRandom="true"/>
+        <Key app:keycode="108" app:keyLabel="l" app:isRandom="true"/>
     </Row>
     <Row >
         <Key  app:horizontalGap="1.1112%p" app:keyPreviewDir="none" app:keyStyle="light" app:keyIcon="@drawable/keyboard_replace" app:keycode="-2"  app:keyWidth="10.8333%p"/>
-        <Key  app:horizontalGap="4.0741%p" app:keycode="122" app:keyLabel="z"/>
-        <Key app:keycode="120" app:keyLabel="x"/>
-        <Key app:keycode="99" app:keyLabel="c"/>
-        <Key app:keycode="118" app:keyLabel="v"/>
-        <Key app:keycode="98" app:keyLabel="b"/>
-        <Key app:keycode="110" app:keyLabel="n"/>
-        <Key app:keycode="109" app:keyLabel="m"/>
+        <Key  app:horizontalGap="4.0741%p" app:keycode="122" app:keyLabel="z" app:isRandom="true"/>
+        <Key app:keycode="120" app:keyLabel="x" app:isRandom="true"/>
+        <Key app:keycode="99" app:keyLabel="c" app:isRandom="true"/>
+        <Key app:keycode="118" app:keyLabel="v" app:isRandom="true"/>
+        <Key app:keycode="98" app:keyLabel="b" app:isRandom="true"/>
+        <Key app:keycode="110" app:keyLabel="n" app:isRandom="true"/>
+        <Key app:keycode="109" app:keyLabel="m" app:isRandom="true"/>
         <Key app:horizontalGap="3.9815%p" app:keycode="0" app:keyPreviewDir="none" app:isRepeat="true" app:keyIcon="@drawable/keyboard_delete" app:keyWidth="10.8333%p" app:keyStyle="light"/>
     </Row>
     <Row >

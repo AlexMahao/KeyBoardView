@@ -2,6 +2,9 @@
 <Keyboard xmlns:app="http://schemas.android.com/apk/res-auto"
     app:horizontalGap="2.3148%p"
     app:keyHeight="6.20%p"
+    app:isRandom="true"
+    app:isAnimation="true"
+    app:isClickRandom="true"
     app:keyWidth="30.5555%p"
     app:verticalGap="0.80%p">
     <Row>

@@ -1,8 +1,13 @@
-package com.spearbothy.keyboardview;
+package com.spearbothy.keyboardview.sample;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.EditText;
+
+import com.spearbothy.keyboardview.KeyboardUtil;
+import com.spearbothy.keyboardview.KeyboardView;
+import com.spearbothy.keyboardview.OnKeyboardFocusChangeListener;
+import com.spearbothy.keyboardview.R;
 
 public class MainActivity extends AppCompatActivity {
     private EditText mNormalEt;

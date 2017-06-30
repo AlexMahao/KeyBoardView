@@ -45,17 +45,35 @@ public class Keyboard {
 
     private int mDisplayHeight;
 
-    private boolean mIsRandom = false;
+    private boolean mIsRandom;
+
+    private int mRandomKeyCount;
+
+    private boolean mIsAnimation;
+
+    private boolean mIsClickRandom;
 
     private List<Key> mKeys = new ArrayList<>();
 
     private ArrayList<Row> mRows = new ArrayList<Row>();
 
     public void random() {
-        if (mIsRandom) {
+        if (mIsRandom && mRandomKeyCount > 0) {
             // 打乱顺序
             randomKeys();
         }
+    }
+
+    public boolean isRandom() {
+        return mIsRandom;
+    }
+
+    public boolean isAnimation() {
+        return mIsAnimation;
+    }
+
+    public boolean isClickRandom() {
+        return mIsClickRandom;
     }
 
     public static class Row {
@@ -117,6 +135,10 @@ public class Keyboard {
         public boolean isRandom;
         public boolean isRepeat;
         public CharSequence text;
+        public int fromX = 0;
+        public int fromY = 0;
+        public int drawX = 0;
+        public int drawY = 0;
 
         private Keyboard keyboard;
 
@@ -132,7 +154,6 @@ public class Keyboard {
 
             this.x = x;
             this.y = y;
-
             TypedArray a = res.obtainAttributes(Xml.asAttributeSet(parser),
                     R.styleable.Keyboard);
             width = getDimensionOrFraction(a,
@@ -144,6 +165,7 @@ public class Keyboard {
             gap = getDimensionOrFraction(a,
                     R.styleable.Keyboard_horizontalGap,
                     keyboard.mDisplayWidth, parent.defaultHorizontalGap);
+            isRandom = a.getBoolean(R.styleable.Keyboard_isRandom, false);
             a.recycle();
 
             this.x += gap;
@@ -153,7 +175,6 @@ public class Keyboard {
             style = a.getInt(R.styleable.Keyboard_External_Key_keyStyle, STYLE_NORMAL);
             checked = a.getBoolean(R.styleable.Keyboard_External_Key_keyChecked, false);
             previewDir = a.getInt(R.styleable.Keyboard_External_Key_keyPreviewDir, PREVIEW_DIR_CENTER);
-            isRandom = a.getBoolean(R.styleable.Keyboard_External_Key_isRandom, false);
             isRepeat = a.getBoolean(R.styleable.Keyboard_External_Key_isRepeat, false);
             a.recycle();
 
@@ -169,6 +190,8 @@ public class Keyboard {
                 text = label;
             }
             a.recycle();
+            drawX = this.x;
+            drawY = this.y;
         }
 
         @Override
@@ -199,10 +222,6 @@ public class Keyboard {
         mDefaultVerticalGap = 0;
         mDefaultHeight = mDefaultWidth;
         loadKeyboard(context, context.getResources().getXml(xmlLayoutResId));
-        if (mIsRandom) {
-            // 打乱顺序
-            randomKeys();
-        }
     }
 
     private void randomKeys() {
@@ -234,6 +253,8 @@ public class Keyboard {
         source.isRepeat = target.isRepeat;
         source.text = target.text;
         source.icon = target.icon;
+        source.fromX = target.x;
+        source.fromY = target.y;
         target.label = tempLabel;
         target.code = tempCode;
         target.style = tempStyle;
@@ -242,6 +263,8 @@ public class Keyboard {
         target.isRepeat = tempIsRepeat;
         target.text = tempText;
         target.icon = tempIcon;
+        target.fromX = source.x;
+        target.fromY = source.y;
     }
 
     protected Row createRowFromXml(Resources res, XmlResourceParser parser) {
@@ -277,7 +300,7 @@ public class Keyboard {
                         inKey = true;
                         key = createKeyFromXml(res, currentRow, x, y, parser);
                         if (key.isRandom) {
-                            mIsRandom = true;
+                            mRandomKeyCount++;
                         }
                         mKeys.add(key);
                         currentRow.mKeys.add(key);
@@ -320,6 +343,9 @@ public class Keyboard {
         mDefaultVerticalGap = getDimensionOrFraction(a,
                 R.styleable.Keyboard_verticalGap,
                 mDisplayHeight, 0);
+        mIsRandom = a.getBoolean(R.styleable.Keyboard_isRandom, true);
+        mIsAnimation = a.getBoolean(R.styleable.Keyboard_isAnimation, true);
+        mIsClickRandom = a.getBoolean(R.styleable.Keyboard_isClickRandom, false);
         a.recycle();
     }
 
